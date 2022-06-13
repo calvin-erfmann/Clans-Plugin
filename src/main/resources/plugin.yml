@@ -1,0 +1,13 @@
+name: Clans
+version: '${project.version}'
+main: de.spaffel.clans.Clans
+api-version: 1.18
+prefix: Clans by Spaffel
+authors: [ Spaffel ]
+description: A Simple Clans-Plugin by Spaffel
+website: spaffel.de
+commands:
+  test:
+  newclan:
+  leaveclan:
+  joinclan:
