@@ -11,3 +11,4 @@ commands:
   newclan:
   leaveclan:
   joinclan:
+  setclancolor:

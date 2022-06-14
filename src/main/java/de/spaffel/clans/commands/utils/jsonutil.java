@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.util.concurrent.ThreadLocalRandom;
 import java.lang.Math;
-
+import de.spaffel.clans.commands.utils.apicheck;
 public class jsonutil extends JavaPlugin{
     private static String datafolder;
 
@@ -29,24 +29,27 @@ public class jsonutil extends JavaPlugin{
 
 
     public static String getPass(String Clanid){
-        String path = "plugins/Clans/clandata/" + Clanid + ".json";
-        String ans = checkFile(path);
-        if (ans == "exists"){
-            JSONParser jsonParser = new JSONParser();
-            try {
-                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
-                String password = (String) jsonObject.get("password");
-                System.out.println("`" + password + "`");
-                return password;
+        if(apicheck.doGet() == true) {
+            String path = "plugins/Clans/clandata/" + Clanid + ".json";
+            String ans = checkFile(path);
+            if (ans == "exists") {
+                JSONParser jsonParser = new JSONParser();
+                try {
+                    JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+                    String password = (String) jsonObject.get("password");
+                    System.out.println("`" + password + "`");
+                    return password;
 
-            }catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
             }
-
 
         }
         return "ne diggi";
@@ -93,7 +96,8 @@ public class jsonutil extends JavaPlugin{
                     return prefix;
                 }else{
                     String Clanname = getClanName(Clanid);
-                    String prefix = "§a§l[" + Clanname + "-Clan] §f§r";
+                    String color = getClanColor(Clanid);
+                    String prefix = color + "§l[" + Clanname + "] §f§r";
                     return prefix;
                 }
 
@@ -110,6 +114,33 @@ public class jsonutil extends JavaPlugin{
 
         }
         return "knecht";
+    }
+
+
+    public static String getClanOfPlayer(String uuid) {
+        String path = "plugins/Clans/playerdata/" + uuid + ".json";
+        String ans = checkFile(path);
+        if (ans == "exists") {
+            JSONParser jsonParser = new JSONParser();
+            try {
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+                String Clanid = (String) jsonObject.get("ClanId");
+
+                return Clanid;
+
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return "0";
     }
 
     public static String JoinClan(String clanname, String Password, String UUID){
@@ -229,6 +260,109 @@ public class jsonutil extends JavaPlugin{
         }
 
 
+
+    }
+
+    public static void setClanColor(String Clanid, String color){
+        String path = "plugins/Clans/clandata/" + Clanid + ".json";
+        String ans = checkFile(path);
+        if (ans == "exists"){
+
+            JSONParser jsonParser = new JSONParser();
+            try {
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+
+                jsonObject.put("color", color);
+                FileWriter file = new FileWriter(path);
+                file.write(jsonObject.toJSONString());
+                file.close();
+                System.out.println("Saved ClanColor");
+
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+
+        }else{
+            System.out.println("Couldt save Clan Color");
+
+        }
+
+
+
+    }
+    public static boolean checkClanLeader(String Clanid, String uuid){
+        String path = "plugins/Clans/clandata/" + Clanid + ".json";
+        String ans = checkFile(path);
+        if (ans == "exists"){
+            JSONParser jsonParser = new JSONParser();
+            try {
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+
+                if (jsonObject.get("leader") == null){
+                    return false;
+
+
+                }else{
+                    String leaderuu = (String) jsonObject.get("leader");
+                    if(leaderuu.equals(uuid)){
+                        return true;
+                    }else{
+                        return false;
+                    }
+
+                }
+
+
+
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return false;
+    }
+
+    public static String getClanColor(String Clanid){
+        String path = "plugins/Clans/clandata/" + Clanid + ".json";
+        String ans = checkFile(path);
+        if (ans == "exists"){
+            JSONParser jsonParser = new JSONParser();
+            try {
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+
+                if (jsonObject.get("color") == null){
+                    String Color = "§a";
+                    return Color;
+
+                }else{
+                    String Color = (String) jsonObject.get("color");
+                    return Color;
+                }
+
+
+
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return "§a";
     }
 
     public static void saveClanName(String Clanname, String ClanId){
@@ -339,25 +473,27 @@ public class jsonutil extends JavaPlugin{
     }
 
     public static String getUUID(String playername){
-        String path = "plugins/Clans/uuids/" + playername + ".json";
-        String ans = checkFile(path);
-        if (ans == "exists"){
-            JSONParser jsonParser = new JSONParser();
-            try {
-                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
-                String uuid = (String) jsonObject.get("uuid");
+        if(apicheck.doGet() == true) {
+            String path = "plugins/Clans/uuids/" + playername + ".json";
+            String ans = checkFile(path);
+            if (ans == "exists") {
+                JSONParser jsonParser = new JSONParser();
+                try {
+                    JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+                    String uuid = (String) jsonObject.get("uuid");
 
-                return uuid;
+                    return uuid;
 
-            }catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
             }
-
-
         }
         return "ne diggi";
     }
