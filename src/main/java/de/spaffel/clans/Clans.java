@@ -12,6 +12,7 @@ import de.spaffel.clans.commands.joinclan;
 import de.spaffel.clans.commands.setclancolor;
 import de.spaffel.clans.commands.utils.jsonutil;
 import de.spaffel.clans.commands.utils.apicheck;
+import de.spaffel.clans.commands.utils.Tab;
 import org.bukkit.entity.Player;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import org.json.simple.JSONObject;
 import java.io.File;
 
+import org.bukkit.plugin.Plugin;
 import java.util.Set;
 import java.util.stream.Collectors;
 import net.luckperms.api.LuckPermsProvider;
@@ -51,11 +53,37 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
+import java.util.concurrent.CopyOnWriteArrayList;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.group.Group;
+import net.luckperms.api.model.user.User;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 public final class Clans extends JavaPlugin implements Listener {
+
+
+
     public LuckPerms lp;
+    static Clans plugin;
+
+    public static Clans getPlugin() {
+        return plugin;
+    }
+
     @Override
     public void onEnable() {
+
         if(apicheck.doGet() == true){
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(this, this);
@@ -73,7 +101,54 @@ public final class Clans extends JavaPlugin implements Listener {
         getCommand("leaveclan").setExecutor(new leaveclan());
         getCommand("joinclan").setExecutor(new joinclan());
         getCommand("setclancolor").setExecutor(new setclancolor());
+        plugin = this;
+        PluginManager pm = Bukkit.getPluginManager();
+        Tab.update();
+        super.onEnable();
     }}
+
+    public static void update() {
+
+
+        }
+
+        public static String getFromID(int id){
+            String c = "";
+            CopyOnWriteArrayList<String> abc = new CopyOnWriteArrayList<>();
+            abc.add("A");
+            abc.add("C");
+            abc.add("D");
+            abc.add("E");
+            abc.add("F");
+            abc.add("G");
+            abc.add("H");
+            abc.add("I");
+            abc.add("J");
+            abc.add("K");
+            abc.add("L");
+            abc.add("M");
+            abc.add("N");
+            abc.add("O");
+            abc.add("P");
+            abc.add("Q");
+            abc.add("R");
+            abc.add("S");
+            abc.add("T");
+            abc.add("U");
+            abc.add("V");
+            abc.add("W");
+            abc.add("X");
+            abc.add("Y");
+            abc.add("Z");
+            CopyOnWriteArrayList<String> copy = new CopyOnWriteArrayList<>();
+            for (String lul : abc) {
+                for (String s : abc)
+                    copy.add("A" + lul + s);
+            }
+            c = copy.get(id);
+            return c;
+        }
+
 
     @Override
     public void onDisable() {
@@ -82,10 +157,13 @@ public final class Clans extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+
         if(apicheck.doGet() == true) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say Helllooow!" + event.getPlayer().getName());
             jsonutil.createPlayer(toString().valueOf(event.getPlayer().getUniqueId()));
             jsonutil.createuuidentry(toString().valueOf(event.getPlayer().getUniqueId()), event.getPlayer().getName());
+            Tab.setPlayerteam(event.getPlayer(), toString().valueOf(event.getPlayer().getUniqueId()), event.getPlayer().getName() );
+            Clans.update();
         }
     }
 

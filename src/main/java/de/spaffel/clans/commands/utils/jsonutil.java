@@ -97,7 +97,7 @@ public class jsonutil extends JavaPlugin{
                 }else{
                     String Clanname = getClanName(Clanid);
                     String color = getClanColor(Clanid);
-                    String prefix = color + "§l[" + Clanname + "] §f§r";
+                    String prefix = color + "[" + Clanname + "] §f§r";
                     return prefix;
                 }
 
