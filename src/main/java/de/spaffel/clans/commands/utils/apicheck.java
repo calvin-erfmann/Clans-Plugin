@@ -10,35 +10,37 @@ public class apicheck {
 
 
     static public boolean doGet() {
-        try {
-            HttpURLConnection http = (HttpURLConnection)
-                    new URL("http://spaffel.de/clans").openConnection();
-            http.setRequestProperty("Accept-Charset", "UTF-8");
-            http.setRequestMethod("GET");
+        return true;
+    }
+        //try {
+            //HttpURLConnection http = (HttpURLConnection)
+            // new URL("http://spaffel.de/clans").openConnection();
+            //http.setRequestProperty("Accept-Charset", "UTF-8");
+            //http.setRequestMethod("GET");
             // InputStream aus Verbindung bauen
-            InputStream inStream = http.getInputStream();
+            //InputStream inStream = http.getInputStream();
             // Input-Stream könnte per read in ein Array gelesen
             // werden. Eleganter ist allerdings ein BufferedReader
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(inStream));
+            //BufferedReader in = new BufferedReader(
+              //      new InputStreamReader(inStream));
             // In antwort werden die eingelesenen Zeilen gesammelt
-            StringBuffer antwort = new StringBuffer();
-            String empfangeneZeile; // für jede Zeile
+            //StringBuffer antwort = new StringBuffer();
+            //String empfangeneZeile; // für jede Zeile
             // Lese zeilenweise ..,
-            while ((empfangeneZeile = in.readLine()) != null) {
-                antwort.append(empfangeneZeile + "\n");
-            }
-            in.close(); // Stream schließen und damit die Verbindung
-            System.out.println("antwort:" + antwort.toString());
-            if(antwort.toString().contains("yes")){
-                System.out.println("antwort:" + antwort.toString());
-                return true;
-            }else{
-                return false;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+            //while ((empfangeneZeile = in.readLine()) != null) {
+                //antwort.append(empfangeneZeile + "\n");
+            //}
+            //in.close(); // Stream schließen und damit die Verbindung
+            //System.out.println("antwort:" + antwort.toString());
+            //if(antwort.toString().contains("yes")){
+                //System.out.println("antwort:" + antwort.toString());
+                //return true;
+            //}else{
+                //return false;
+            //}
+        //} catch (IOException e) {
+            //e.printStackTrace();
+        //}
+
+    //}
 }

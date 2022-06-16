@@ -1,15 +1,11 @@
 package de.spaffel.clans;
+import de.spaffel.clans.commands.*;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.event.EventBus;
 import net.luckperms.api.event.log.LogPublishEvent;
 import net.luckperms.api.event.user.UserLoadEvent;
 import net.luckperms.api.event.user.track.UserPromoteEvent;
-import de.spaffel.clans.commands.test;
-import de.spaffel.clans.commands.newclan;
-import de.spaffel.clans.commands.leaveclan;
-import de.spaffel.clans.commands.joinclan;
-import de.spaffel.clans.commands.setclancolor;
 import de.spaffel.clans.commands.utils.jsonutil;
 import de.spaffel.clans.commands.utils.apicheck;
 import de.spaffel.clans.commands.utils.Tab;
@@ -101,6 +97,7 @@ public final class Clans extends JavaPlugin implements Listener {
         getCommand("leaveclan").setExecutor(new leaveclan());
         getCommand("joinclan").setExecutor(new joinclan());
         getCommand("setclancolor").setExecutor(new setclancolor());
+        getCommand("clanmsg").setExecutor(new clanmsg());
         plugin = this;
         PluginManager pm = Bukkit.getPluginManager();
         Tab.update();

@@ -8,8 +8,11 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
+
+
 public class Tab {
     public static Thread t;
+    public static boolean spaffelsmp = true;
 
     public static void setTab() {
         Clans.update();
@@ -36,22 +39,21 @@ public class Tab {
 
     public static void setTab(Player p) {
 
+        if(spaffelsmp == true){
 
 
+            String line = "§7";
+            for (int i = 0; i != 12; i++)
+                line = String.valueOf(line) + "-";
+            String head = "\n §a<§7" + line + "[§dSpaffel-Smp§7]" + line + "§a>\n" + "§eOnline§7: §a" + (
 
+                    Bukkit.getOnlinePlayers().size() + "§7/§a" +
+                            Bukkit.getMaxPlayers() + "\n" + "§eTPS§7: §a" + TPSUtil.getTPS() + "\n");
+            String foot = "\n§e/vote §afür Belohnungen!\n§e/Discord §aUmauf den Discord zu gelangen!\n<§7" +
+                    line + "[§dSpaffel-Smp§7]" + line + "§a>\n";
+            p.setPlayerListHeaderFooter(head, foot);
 
-        String line = "§7";
-        for (int i = 0; i != 12; i++)
-            line = String.valueOf(line) + "-";
-        String head = "\n §a<§7" + line + "[§dSpaffel-Smp§7]" + line + "§a>\n" + "§eOnline§7: §a"+ (
-
-        Bukkit.getOnlinePlayers().size()  + "§7/§a"  +
-        Bukkit.getMaxPlayers() + "\n" + "§eTPS§7: §a"+ TPSUtil.getTPS() + "\n");
-        String foot = "\n§e/vote §afür Belohnungen!\n§e/Discord §aUmauf den Discord zu gelangen!\n<§7" +
-        line + "[§dSpaffel-Smp§7]" + line + "§a>\n";
-        p.setPlayerListHeaderFooter(head, foot);
-
-
+        }
     }
     public static void setPlayerteam(Player player, String uuid, String Playername){
         System.out.println("neue ranksetzen");

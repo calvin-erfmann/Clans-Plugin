@@ -12,3 +12,4 @@ commands:
   leaveclan:
   joinclan:
   setclancolor:
+  clanmsg:

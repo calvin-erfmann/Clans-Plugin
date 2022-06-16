@@ -15,6 +15,7 @@ import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import de.spaffel.clans.commands.utils.Tab;
 
 public class setclancolor implements TabExecutor  {
 
@@ -76,7 +77,7 @@ public class setclancolor implements TabExecutor  {
 
                 }
                 jsonutil.setClanColor(jsonutil.getClanOfPlayer(leaderuuid), Colorcode);
-
+                Tab.setPlayerteam((Player) sender, leaderuuid, playername);
 
             }else{
 
