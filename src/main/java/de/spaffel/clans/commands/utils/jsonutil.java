@@ -296,6 +296,127 @@ public class jsonutil extends JavaPlugin{
 
 
     }
+    public static void setClanbase(String Clanid, String x, String y, String z){
+        String path = "plugins/Clans/clandata/" + Clanid + ".json";
+        String ans = checkFile(path);
+        if (ans == "exists"){
+
+            JSONParser jsonParser = new JSONParser();
+            try {
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+
+                jsonObject.put("basex", x);
+                jsonObject.put("basey", y);
+                jsonObject.put("basez", z);
+                FileWriter file = new FileWriter(path);
+                file.write(jsonObject.toJSONString());
+                file.close();
+                System.out.println("Saved Clanbase");
+
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+
+        }else{
+            System.out.println("Couldt save Clanbase");
+
+        }
+
+
+
+    }
+
+    public static String getClanbasex(String ClanId) {
+        String path = "plugins/Clans/clandata/" + ClanId + ".json";
+        String ans = checkFile(path);
+        if (ans == "exists") {
+            JSONParser jsonParser = new JSONParser();
+            try {
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+                String x = (String) jsonObject.get("basex");
+                String y = (String) jsonObject.get("basey");
+                String z = (String) jsonObject.get("basez");
+
+
+                return x;
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return "nix";
+    }
+
+    public static String getClanbasey(String ClanId) {
+        String path = "plugins/Clans/clandata/" + ClanId + ".json";
+        String ans = checkFile(path);
+        if (ans == "exists") {
+            JSONParser jsonParser = new JSONParser();
+            try {
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+                String x = (String) jsonObject.get("basex");
+                String y = (String) jsonObject.get("basey");
+                String z = (String) jsonObject.get("basez");
+
+
+                return y;
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return "nix";
+    }
+
+    public static String getClanbasez(String ClanId) {
+        String path = "plugins/Clans/clandata/" + ClanId + ".json";
+        String ans = checkFile(path);
+        if (ans == "exists") {
+            JSONParser jsonParser = new JSONParser();
+            try {
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+                String x = (String) jsonObject.get("basex");
+                String y = (String) jsonObject.get("basey");
+                String z = (String) jsonObject.get("basez");
+
+
+                return z;
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return "nix";
+    }
+
+
+
+
+
     public static boolean checkClanLeader(String Clanid, String uuid){
         String path = "plugins/Clans/clandata/" + Clanid + ".json";
         String ans = checkFile(path);

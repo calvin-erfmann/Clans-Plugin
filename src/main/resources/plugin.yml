@@ -13,3 +13,5 @@ commands:
   joinclan:
   setclancolor:
   clanmsg:
+  setclanbase:
+  clanbase:

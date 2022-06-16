@@ -98,6 +98,8 @@ public final class Clans extends JavaPlugin implements Listener {
         getCommand("joinclan").setExecutor(new joinclan());
         getCommand("setclancolor").setExecutor(new setclancolor());
         getCommand("clanmsg").setExecutor(new clanmsg());
+        getCommand("setclanbase").setExecutor(new setclanbase());
+        getCommand("clanbase").setExecutor(new clanbase());
         plugin = this;
         PluginManager pm = Bukkit.getPluginManager();
         Tab.update();
