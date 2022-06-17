@@ -9,6 +9,7 @@ import net.luckperms.api.event.user.track.UserPromoteEvent;
 import de.spaffel.clans.commands.utils.jsonutil;
 import de.spaffel.clans.commands.utils.apicheck;
 import de.spaffel.clans.commands.utils.Tab;
+import de.spaffel.clans.commands.Metrics;
 import org.bukkit.entity.Player;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -79,6 +80,8 @@ public final class Clans extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        int pluginId = 15506; // <-- Replace with the id of your plugin!
+        Metrics metrics = new Metrics(this, pluginId);
 
         if(apicheck.doGet() == true){
         // Plugin startup logic
@@ -100,6 +103,8 @@ public final class Clans extends JavaPlugin implements Listener {
         getCommand("clanmsg").setExecutor(new clanmsg());
         getCommand("setclanbase").setExecutor(new setclanbase());
         getCommand("clanbase").setExecutor(new clanbase());
+        getCommand("setclanleader").setExecutor(new setclanleader());
+        getCommand("clanhelp").setExecutor(new clanhelp());
         plugin = this;
         PluginManager pm = Bukkit.getPluginManager();
         Tab.update();
@@ -158,7 +163,7 @@ public final class Clans extends JavaPlugin implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
 
         if(apicheck.doGet() == true) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say Helllooow!" + event.getPlayer().getName());
+
             jsonutil.createPlayer(toString().valueOf(event.getPlayer().getUniqueId()));
             jsonutil.createuuidentry(toString().valueOf(event.getPlayer().getUniqueId()), event.getPlayer().getName());
             Tab.setPlayerteam(event.getPlayer(), toString().valueOf(event.getPlayer().getUniqueId()), event.getPlayer().getName() );

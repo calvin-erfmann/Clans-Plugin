@@ -12,7 +12,7 @@ import org.bukkit.scoreboard.Team;
 
 public class Tab {
     public static Thread t;
-    public static boolean spaffelsmp = true;
+    public static boolean spaffelsmp = false;
 
     public static void setTab() {
         Clans.update();
@@ -49,7 +49,7 @@ public class Tab {
 
                     Bukkit.getOnlinePlayers().size() + "§7/§a" +
                             Bukkit.getMaxPlayers() + "\n" + "§eTPS§7: §a" + TPSUtil.getTPS() + "\n");
-            String foot = "\n§e/vote §afür Belohnungen!\n§e/Discord §aUmauf den Discord zu gelangen!\n<§7" +
+            String foot = "\n§e/vote §afür Belohnungen!\n§e/Discord §aUm auf den Discord zu gelangen!\n§e/clanhelp §aInfos zu Clans\n<§7" +
                     line + "[§dSpaffel-Smp§7]" + line + "§a>\n";
             p.setPlayerListHeaderFooter(head, foot);
 

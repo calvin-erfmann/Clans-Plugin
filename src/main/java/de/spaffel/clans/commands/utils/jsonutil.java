@@ -296,6 +296,43 @@ public class jsonutil extends JavaPlugin{
 
 
     }
+
+    public static void setClanleader(String Clanid, String uuid){
+        String path = "plugins/Clans/clandata/" + Clanid + ".json";
+        String ans = checkFile(path);
+        if (ans == "exists"){
+
+            JSONParser jsonParser = new JSONParser();
+            try {
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(path));
+
+                jsonObject.put("leader", uuid);
+                FileWriter file = new FileWriter(path);
+                file.write(jsonObject.toJSONString());
+                file.close();
+                System.out.println("Saved Clanleader");
+
+            }catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+
+        }else{
+            System.out.println("Couldt save Clanleader");
+
+        }
+
+
+
+    }
+
+
+
     public static void setClanbase(String Clanid, String x, String y, String z){
         String path = "plugins/Clans/clandata/" + Clanid + ".json";
         String ans = checkFile(path);
